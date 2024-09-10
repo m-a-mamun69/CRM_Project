@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
 from .forms import CreateUserForm, LoginForm
+# from django.http import HttpResponse
+from django.contrib.auth.models import auth
+from django.contrib.auth import authenticate
 
 # Create your views here.
 
@@ -21,10 +22,9 @@ def register(request):
 
         if form.is_valid():
             form.save()
-            # return redirect('')
+            return redirect("my-login")
     context = {'form':form}
     return render(request, 'webapp/register.html', context=context)
-
 
 
 # - Login
@@ -47,3 +47,10 @@ def my_login(request):
     
     context = {'form':form}
     return render(request, 'webapp/my-login.html', context=context)
+
+
+# - Login
+
+def user_logout(request):
+    auth.logout(request)
+    return redirect("my-login")
