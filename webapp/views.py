@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import CreateUserForm, LoginForm
 # from django.http import HttpResponse
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -43,7 +44,7 @@ def my_login(request):
 
             if user is not None:
                 auth.login(request, user)
-                # return redirect('')
+                return redirect("dashboard")
     
     context = {'form':form}
     return render(request, 'webapp/my-login.html', context=context)
@@ -54,3 +55,10 @@ def my_login(request):
 def user_logout(request):
     auth.logout(request)
     return redirect("my-login")
+
+
+# - Dashboard
+
+@login_required(login_url='my-login')
+def dashboard(request):
+    return render(request, 'webapp/dashboard.html')
