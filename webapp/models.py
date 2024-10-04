@@ -8,6 +8,7 @@ class Record(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.CharField(max_length=255)
     phone = models.CharField(max_length=20)
+    address = models.CharField(max_length=255, default='Default Address')
     city = models.CharField(max_length=255)
     province = models.CharField(max_length=200)
     country = models.CharField(max_length=125)
