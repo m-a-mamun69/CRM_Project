@@ -99,3 +99,12 @@ def update_record(request, pk):
             return redirect("dashboard")
     context = {'form':form}
     return render(request, 'webapp/update-record.html', context=context)
+
+
+# - Read / View a Record
+
+@login_required(login_url='my-login')
+def singular_record(request, pk):
+    all_records = Record.objects.get(id=pk)
+    context = {'record':all_records}
+    return render(request, 'webapp/view-record.html', context=context)
